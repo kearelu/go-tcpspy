@@ -85,7 +85,7 @@ func pass_through(c *Channel) {
 			c.to.Write(b[:n])
 			c.logger <- []byte(fmt.Sprintf("Sent (#%d) to %s\n", packet_n, to_peer))
 			offset += n
-			packet_n += 1
+			packet_n++
 		}
 	}
 	c.from.Close()
