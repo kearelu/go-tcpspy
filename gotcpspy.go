@@ -59,13 +59,13 @@ func printable_addr(a net.Addr) string {
 	return strings.Replace(a.String(), ":", "-", -1)
 }
 
-type Channel struct {
+type channel struct {
 	from, to              net.Conn
 	logger, binary_logger chan []byte
 	ack                   chan bool
 }
 
-func pass_through(c *Channel) {
+func pass_through(c *channel) {
 	from_peer := printable_addr(c.from.LocalAddr())
 	to_peer := printable_addr(c.to.LocalAddr())
 
@@ -115,8 +115,8 @@ func process_connection(local net.Conn, conn_n int, target string) {
 
 	logger <- []byte(fmt.Sprintf("Connected to %s at %s\n", target, format_time(started)))
 
-	go pass_through(&Channel{remote, local, logger, to_logger, ack})
-	go pass_through(&Channel{local, remote, logger, from_logger, ack})
+	go pass_through(&channel{remote, local, logger, to_logger, ack})
+	go pass_through(&channel{local, remote, logger, from_logger, ack})
 	<-ack // Make sure that the both copiers gracefully finish.
 	<-ack //
 
