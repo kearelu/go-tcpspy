@@ -148,7 +148,7 @@ func main() {
 	for {
 		if conn, err := ln.Accept(); err == nil {
 			go process_connection(conn, conn_n, target)
-			conn_n += 1
+			conn_n++
 		} else {
 			fmt.Printf("Accept failed, %v\n", err)
 		}
