@@ -28,3 +28,9 @@ _testmain.go
 
 # External packages folder
 vendor/
+
+# Hidden folders
+.*
+
+# Debug
+debug
